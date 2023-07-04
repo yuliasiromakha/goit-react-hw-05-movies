@@ -1,11 +1,11 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Route, Routes, NavLink } from "react-router-dom";
 import "./App.css";
-import Home from "pages/Home";
-import Movie from "pages/Movie";
-import Cast from "pages/Cast";
-import Reviews from "pages/Reviews";
 
+const Home = lazy(() => import("./pages/Home"));
+const Movie = lazy(() => import("./pages/Movie"));
+const Cast = lazy(() => import("./pages/Cast"));
+const Reviews = lazy(() => import("./pages/Reviews"));
 
 const App = () => {
   return (
@@ -25,14 +25,15 @@ const App = () => {
         </ul>
       </nav>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/movies/:movieId" element={<Movie />}>
             <Route path="/movies/:movieId/cast" element={<Cast />} />
-            {/* <Route path="cast" element={<Cast />} /> */}
-            <Route path="reviews" element={<Reviews />} />
+            <Route path="/movies/:movieId/reviews" element={<Reviews />} />
           </Route>
-      </Routes>
+        </Routes>
+      </Suspense>
     </div>
   );
 };
