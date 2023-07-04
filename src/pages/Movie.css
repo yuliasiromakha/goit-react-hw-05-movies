@@ -1,0 +1,29 @@
+.movie_section {
+    display: flex;
+    margin-top: 20px;
+    padding-left: 15px;
+    padding-bottom: 20px;
+
+    border-bottom: black solid 1px;
+}
+
+.movie_info {
+    margin-left: 30px;
+}
+
+.overview {
+    width: 700px;
+}
+
+.button {
+    margin-top: 30px;
+    margin-left: 15px;
+    text-decoration: none;
+    color: black;
+    border: solid black 1px ;
+    background-color: lavender;
+}
+
+.additional_info {
+    border-bottom: 1px solid #000;
+}

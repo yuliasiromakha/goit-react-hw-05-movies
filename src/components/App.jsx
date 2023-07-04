@@ -1,29 +1,40 @@
-// 73afe0ea7b3891ac6681393403683c27
+import React from "react";
+import { Route, Routes, NavLink } from "react-router-dom";
+import "./App.css";
+import Home from "pages/Home";
+import Movie from "pages/Movie";
+import Cast from "pages/Cast";
+import Reviews from "pages/Reviews";
 
-import Movies from '../pages/Movies';
-import Home from '../pages/Home';
-import { Route, Routes, NavLink } from 'react-router-dom';
 
 const App = () => {
   return (
     <div>
-      <nav>
-        <ul>
+      <nav className="header">
+        <ul className="header-list">
           <li>
-            <NavLink to="/">Home</NavLink>
+            <NavLink to="/" className="nav_place">
+              Home
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/movies">Movies</NavLink>
+            <NavLink to="/movies" className="nav_place">
+              Movies
+            </NavLink>
           </li>
         </ul>
       </nav>
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
+          <Route path="/movies/:movieId" element={<Movie />}>
+            <Route path="/movies/:movieId/cast" element={<Cast />} />
+            {/* <Route path="cast" element={<Cast />} /> */}
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
       </Routes>
     </div>
   );
-}
+};
 
 export default App;
