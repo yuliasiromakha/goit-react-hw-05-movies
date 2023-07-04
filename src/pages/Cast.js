@@ -26,7 +26,7 @@ const Cast = () => {
   }, [movieId]);
 
   if (cast.length === 0) {
-    return <div>No cast found.</div>;
+    return <div>Loading...</div>;
   }
 
   return (
