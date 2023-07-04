@@ -2,10 +2,10 @@ import React, { lazy, Suspense } from "react";
 import { Route, Routes, NavLink } from "react-router-dom";
 import "./App.css";
 
-const Home = lazy(() => import("./pages/Home"));
-const Movie = lazy(() => import("./pages/Movie"));
-const Cast = lazy(() => import("./pages/Cast"));
-const Reviews = lazy(() => import("./pages/Reviews"));
+const Home = lazy(() => import("pages/Home"));
+const Movie = lazy(() => import("pages/Movie"));
+const Cast = lazy(() => import("pages/Cast"));
+const Reviews = lazy(() => import("pages/Reviews"));
 
 const App = () => {
   return (
