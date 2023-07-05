@@ -17,7 +17,7 @@ const Home = () => {
       })
       .then((data) => {
         setMovies(data.results);
-        console.log(data);
+        // console.log(data);
       })
       .catch((error) => {
         console.log("Error fetching movies:", error);

@@ -27,15 +27,34 @@ const App = () => {
 
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/movies/:movieId" element={<Movie />}>
-            <Route path="/movies/:movieId/cast" element={<Cast />} />
-            <Route path="/movies/:movieId/reviews" element={<Reviews />} />
+
+          <Route path="/" element={<Home />}>
+            <Route path="/movies/" element={<Movie />}>
+              <Route path=":movieId" element={<Movie />}>
+                <Route path="cast" element={<Cast />} />
+                <Route path="reviews" element={<Reviews />} />
+              </Route>
+            </Route>
           </Route>
+
         </Routes>
       </Suspense>
+
+
+{ /* КОД ЯКИЙ ПРАЦЮЄ */
+/* <Suspense fallback={<div>Loading...</div>}>
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/movies/:movieId" element={<Movie />} />
+    <Route path="/movies/:movieId/cast" element={<Cast />} />
+    <Route path="/movies/:movieId/reviews" element={<Reviews />} />
+  </Routes>
+</Suspense> */}
+
     </div>
   );
 };
 
 export default App;
+
+
