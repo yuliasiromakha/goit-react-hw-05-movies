@@ -6,6 +6,8 @@ const Home = lazy(() => import("pages/Home"));
 const Movie = lazy(() => import("pages/Movie"));
 const Cast = lazy(() => import("pages/Cast"));
 const Reviews = lazy(() => import("pages/Reviews"));
+const NotFound = lazy(() => import("pages/NotFound"));
+const MovieDetails = lazy(() => import("pages/MovieDetails"));
 
 const App = () => {
   return (
@@ -27,34 +29,18 @@ const App = () => {
 
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-
-          <Route path="/" element={<Home />}>
-            <Route path="/movies/" element={<Movie />}>
-              <Route path=":movieId" element={<Movie />}>
-                <Route path="cast" element={<Cast />} />
-                <Route path="reviews" element={<Reviews />} />
-              </Route>
-            </Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/movies/*" element={<Movie />} />
+          <Route path="/movies/:movieId" element={<MovieDetails />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
           </Route>
-
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-
-
-{ /* КОД ЯКИЙ ПРАЦЮЄ */
-/* <Suspense fallback={<div>Loading...</div>}>
-  <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/movies/:movieId" element={<Movie />} />
-    <Route path="/movies/:movieId/cast" element={<Cast />} />
-    <Route path="/movies/:movieId/reviews" element={<Reviews />} />
-  </Routes>
-</Suspense> */}
-
     </div>
   );
 };
 
 export default App;
-
 
