@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+// import { useParams, Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useParams, Link, Outlet } from "react-router-dom";
-import './Movie.css'
+import "./Movie.css";
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  // const navigate = useNavigate();
+  // const location = useLocation();
 
   useEffect(() => {
     const API_KEY = "84c9ab04e100be4662cee8d4849b6920";
@@ -25,13 +28,21 @@ const MovieDetails = () => {
       });
   }, [movieId]);
 
+  const handleGoBack = () => {
+    // if () {
+    //   navigate('/movies');
+    // } else {
+    //   navigate("/");
+    // }
+  };
+
   if (!movie) {
     return <div>Loading</div>;
   }
 
   return (
     <>
-      <Link to="/" className="button">
+      <Link to="/" className="button" onClick={handleGoBack}>
         Go back
       </Link>
 
