@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, Outlet } from "react-router-dom";
+import './Movie.css'
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -25,7 +26,7 @@ const MovieDetails = () => {
   }, [movieId]);
 
   if (!movie) {
-    return <div>Loading...</div>;
+    return <div>Loading</div>;
   }
 
   return (
