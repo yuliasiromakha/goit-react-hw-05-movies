@@ -45,6 +45,8 @@ const Movie = () => {
       });
   };
 
+  console.log(location);
+
   return (
     <>
       <form className="search_section" onSubmit={handleSearch}>

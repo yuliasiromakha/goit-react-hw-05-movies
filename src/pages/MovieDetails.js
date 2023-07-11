@@ -31,9 +31,11 @@ const MovieDetails = () => {
     return <div>Sorry, no movie was found</div>;
   }
 
+  console.log(location);
+  
   return (
     <>
-      <Link to={location.state && location.state.from ? location.state.from : "/"} className="button">
+      <Link to={location.state.from} className="button">
         Go back
       </Link>
 
