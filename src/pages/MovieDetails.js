@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams, Link, Outlet, useLocation } from "react-router-dom";
 import "./Movie.css";
 
@@ -6,6 +6,7 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const location = useLocation();
+  const backLinkLocationRef = useRef(location.state?.from ?? '/home')
 
   useEffect(() => {
     const API_KEY = "84c9ab04e100be4662cee8d4849b6920";
@@ -32,10 +33,10 @@ const MovieDetails = () => {
   }
 
   console.log(location);
-  
+
   return (
     <>
-      <Link to={location.state.from} className="button">
+      <Link to={backLinkLocationRef.current} className="button">
         Go back
       </Link>
 
