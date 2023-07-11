@@ -23,13 +23,13 @@ const MovieDetails = () => {
       })
       .catch((error) => {
         console.log("Error fetching movie:", error);
+        return (<p>Sorry, no movie was found</p>)
       });
   }, [movieId]);
 
   if (!movie) {
-    return <div>Loading</div>;
+    return <div>Sorry, no movie was found</div>;
   }
-  console.log('movie details',location);
 
   return (
     <>
