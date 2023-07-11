@@ -6,7 +6,7 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const location = useLocation();
-  const backLinkLocationRef = useRef(location.state?.from ?? '/home')
+  const backLinkLocationRef = useRef(location.state?.from ?? '/')
 
   useEffect(() => {
     const API_KEY = "84c9ab04e100be4662cee8d4849b6920";
