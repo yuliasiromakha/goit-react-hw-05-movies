@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link, Outlet, useLocation, useSearchParams, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useSearchParams } from "react-router-dom";
 import "./Movie.css";
 
 const Movie = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -41,7 +40,6 @@ const Movie = () => {
       })
       .catch((error) => {
         console.log("Error fetching search results:", error);
-        return <p>Sorry, there was an error while fetching the movie</p>;
       });
   };
 
@@ -77,7 +75,7 @@ const Movie = () => {
               <li key={result.id}>
                 <Link
                   to={`/movies/${result.id}`}
-                  state={{ from: location, searchQuery }}
+                  state={{ from: location }}
                 >
                   {result.title}
                 </Link>
