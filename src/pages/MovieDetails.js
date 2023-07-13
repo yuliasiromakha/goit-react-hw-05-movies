@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import "./Movie.css";
 
@@ -6,7 +6,7 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const location = useLocation();
-  const backLinkLocation = location.state?.from || "/";
+  const backLinkLocation = useRef(location.state?.from || "/");
 
   useEffect(() => {
     const API_KEY = "84c9ab04e100be4662cee8d4849b6920";
@@ -30,7 +30,7 @@ const MovieDetails = () => {
 
   return (
     <>
-      <Link to={backLinkLocation} className="button">
+      <Link to={backLinkLocation.current} className="button">
         Go back
       </Link>
 
