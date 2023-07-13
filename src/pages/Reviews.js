@@ -18,7 +18,7 @@ const Reviews = () => {
       })
       .then((data) => {
         setReviews(data.results);
-        console.log(data);
+        // console.log(data);
       })
       .catch((error) => {
         console.log("Error fetching reviews:", error);

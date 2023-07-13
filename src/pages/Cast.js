@@ -18,7 +18,7 @@ const Cast = () => {
       })
       .then((data) => {
         setCast(data.cast);
-        console.log("Cast:", data.cast);
+        // console.log("Cast:", data.cast);
       })
       .catch((error) => {
         console.log("Error fetching cast:", error);

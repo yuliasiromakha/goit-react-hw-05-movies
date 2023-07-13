@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams, Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useSearchParams, useParams } from "react-router-dom";
 import "./Movie.css";
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const location = useLocation();
-  const backLinkLocationRef = useRef(location.state?.from ?? '/')
+  const backLinkLocationRef = useRef(location.state?.from ?? "/");
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("query");
 
   useEffect(() => {
     const API_KEY = "84c9ab04e100be4662cee8d4849b6920";
@@ -24,15 +26,9 @@ const MovieDetails = () => {
       })
       .catch((error) => {
         console.log("Error fetching movie:", error);
-        return (<p>Sorry, no movie was found</p>)
+        setMovie(null);
       });
   }, [movieId]);
-
-  if (!movie) {
-    return <div>Sorry, no movie was found</div>;
-  }
-
-  console.log(location);
 
   return (
     <>
@@ -40,7 +36,9 @@ const MovieDetails = () => {
         Go back
       </Link>
 
-      <div className="movie_section">
+      {movie ? (
+        <>
+        <div className="movie_section">
         <img
           src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
           alt={movie.title}
@@ -61,16 +59,19 @@ const MovieDetails = () => {
       </div>
 
       <div className="additional_info">
-        <p>Additional information</p>
-        <ul>
-          <li>
-            <Link to={`/movies/${movieId}/cast`}>Cast</Link>
-          </li>
-          <li>
-            <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
-          </li>
-        </ul>
+      <p>Additional information</p>
+      <ul>
+        <li>
+          <Link to={`/movies/${movieId}/cast`}>Cast</Link>
+        </li>
+        <li>
+          <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+        </li>
+      </ul>
       </div>
+    </>) : (
+        <p>Sorry, no movie was found</p>
+      )}
 
       <Outlet />
     </>

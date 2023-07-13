@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, Outlet, useLocation, useSearchParams, useNavigate } from "react-router-dom";
 import "./Movie.css";
 
 const Movie = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleSearchInputChange = (event) => {
-    const query = event.target.value;
-    setSearchQuery(query);
-    if (query.trim() === "") {
-      setSearchResults([]);
+  useEffect(() => {
+    const query = searchParams.get("query");
+    if (query) {
+      setSearchQuery(query);
+      fetchSearchResults(query);
     }
-  };
+  }, [searchParams]);
 
-  const handleSearch = (event) => {
-    event.preventDefault(); 
-
-    if (searchQuery.trim() === "") {
+  const fetchSearchResults = (query) => {
+    if (query.trim() === "") {
       setSearchResults([]);
       return;
     }
@@ -26,7 +26,7 @@ const Movie = () => {
     const API_KEY = "84c9ab04e100be4662cee8d4849b6920";
     const BASE_URL = "https://api.themoviedb.org";
 
-    fetch(`${BASE_URL}/3/search/movie?query=${searchQuery}&api_key=${API_KEY}`)
+    fetch(`${BASE_URL}/3/search/movie?query=${query}&api_key=${API_KEY}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(response.status);
@@ -41,11 +41,21 @@ const Movie = () => {
       })
       .catch((error) => {
         console.log("Error fetching search results:", error);
-        return (<p>Sorry, there was an error while fetching the movie</p>)
+        return <p>Sorry, there was an error while fetching the movie</p>;
       });
   };
 
-  console.log(location);
+  const handleSearchInputChange = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+
+    setSearchParams({ query: searchQuery });
+    fetchSearchResults(searchQuery);
+  };
 
   return (
     <>
@@ -65,7 +75,10 @@ const Movie = () => {
           <ul>
             {searchResults.map((result) => (
               <li key={result.id}>
-                <Link to={`/movies/${result.id}`} state={{ from: location }}>
+                <Link
+                  to={`/movies/${result.id}`}
+                  state={{ from: location, searchQuery }}
+                >
                   {result.title}
                 </Link>
               </li>
